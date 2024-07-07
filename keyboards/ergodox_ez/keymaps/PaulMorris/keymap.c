@@ -143,6 +143,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 static void process_ar_j(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
         case KC_U: SEND_STRING("'"); return;
+        case KC_C: SEND_STRING("f"); return;
     }
     SEND_STRING("j");
 }
@@ -156,11 +157,11 @@ static void process_ar_right(uint16_t keycode, uint8_t mods) {
         case KC_N: SEND_STRING("'"); return;
 
         // Allow access to alternative repeat key default characters.
-        case KC_C: SEND_STRING("f"); return;
-        case KC_M: SEND_STRING("f"); return; 
+        case KC_C: SEND_STRING("v"); return;
         case KC_W: SEND_STRING("v"); return;
-        case KC_P: SEND_STRING("v"); return;
         case KC_H: SEND_STRING("v"); return;
+        case KC_P: SEND_STRING("v"); return;
+        case KC_M: SEND_STRING("f"); return; 
     }
     SEND_STRING("-");
 }
@@ -178,6 +179,7 @@ static void process_ar_v(uint16_t keycode, uint8_t mods) {
         case KC_W: SEND_STRING("h"); return;
         case KC_M: SEND_STRING("p"); return;
         case KC_H: SEND_STRING("y"); return;
+        case KC_C: SEND_STRING("y"); return;
     }
     SEND_STRING("v");
 }
