@@ -164,7 +164,7 @@ static void process_ar_right(uint16_t keycode, uint8_t mods) {
         case KC_P: SEND_STRING("v"); set_last_keycode(KC_V); return;
         case KC_M: SEND_STRING("f"); set_last_keycode(KC_F); return; 
     }
-    SEND_STRING("-");
+    SEND_STRING("qu");
 }
 
 static void process_ar_f(uint16_t keycode, uint8_t mods) {
