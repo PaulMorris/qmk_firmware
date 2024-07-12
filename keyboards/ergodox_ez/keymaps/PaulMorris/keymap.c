@@ -142,44 +142,46 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
 
 static void process_ar_j(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        case KC_U: SEND_STRING("'"); return;
-        case KC_C: SEND_STRING("f"); return;
+        case KC_U: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
+        case KC_C: SEND_STRING("f"); set_last_keycode(KC_F); return;
+        // TODO: no way to type cj or uj (without backspace)
     }
     SEND_STRING("j");
 }
 
 static void process_ar_right(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        case KC_L: SEND_STRING("p"); return;
-        case KC_G: SEND_STRING("l"); return;
-        case KC_U: SEND_STRING("e"); return;
-        case KC_O: SEND_STRING("a"); return;
-        case KC_N: SEND_STRING("'"); return;
+        case KC_L: SEND_STRING("p"); set_last_keycode(KC_P); return;
+        case KC_G: SEND_STRING("l"); set_last_keycode(KC_L); return;
+        case KC_U: SEND_STRING("e"); set_last_keycode(KC_E); return;
+        case KC_O: SEND_STRING("a"); set_last_keycode(KC_A); return;
+        case KC_N: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
 
         // Allow access to alternative repeat key default characters.
-        case KC_C: SEND_STRING("v"); return;
-        case KC_W: SEND_STRING("v"); return;
-        case KC_H: SEND_STRING("v"); return;
-        case KC_P: SEND_STRING("v"); return;
-        case KC_M: SEND_STRING("f"); return; 
+        case KC_C: SEND_STRING("v"); set_last_keycode(KC_V); return;
+        case KC_W: SEND_STRING("v"); set_last_keycode(KC_V); return;
+        case KC_H: SEND_STRING("v"); set_last_keycode(KC_V); return;
+        case KC_P: SEND_STRING("v"); set_last_keycode(KC_V); return;
+        case KC_M: SEND_STRING("f"); set_last_keycode(KC_F); return; 
     }
     SEND_STRING("-");
 }
 
 static void process_ar_f(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        case KC_C: SEND_STRING("h"); return;
-        case KC_P: SEND_STRING("l"); return;
+        case KC_C:  SEND_STRING("h"); set_last_keycode(KC_H); return;
+        case KC_P: SEND_STRING("l"); set_last_keycode(KC_L); return;
     }
     SEND_STRING("f");
 }
 
 static void process_ar_v(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        case KC_W: SEND_STRING("h"); return;
-        case KC_M: SEND_STRING("p"); return;
-        case KC_H: SEND_STRING("y"); return;
-        case KC_C: SEND_STRING("y"); return;
+        // TODO?: since [wv -> wh] and [hv -> hy] we get 'why' rather than 'whv' 
+        case KC_W: SEND_STRING("h"); set_last_keycode(KC_H); return;
+        case KC_M: SEND_STRING("p"); set_last_keycode(KC_P); return;
+        case KC_H: SEND_STRING("y"); set_last_keycode(KC_Y); return;
+        case KC_C: SEND_STRING("y"); set_last_keycode(KC_Y); return;
     }
     SEND_STRING("v");
 }
