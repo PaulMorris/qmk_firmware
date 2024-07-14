@@ -142,33 +142,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
     return true;  // Other keys can be repeated.
 }
 
-static void process_ar_j(uint16_t keycode, uint8_t mods) {
-    switch (keycode) {
-        case KC_U: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
-        case KC_C: SEND_STRING("f"); set_last_keycode(KC_F); return; // ch
-        // TODO: no way to type cj or uj (without backspace)
-    }
-    SEND_STRING("j");
-    set_last_keycode(KC_J);
-}
-
-static void process_ar_right(uint16_t keycode, uint8_t mods) {
-    switch (keycode) {
-        case KC_L: SEND_STRING("w"); set_last_keycode(KC_W); return;
-        case KC_U: SEND_STRING("e"); set_last_keycode(KC_E); return;
-        case KC_O: SEND_STRING("a"); set_last_keycode(KC_A); return;
-        case KC_N: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
-
-        // Allow access to alternative repeat key default characters.
-        case KC_C: SEND_STRING("v"); set_last_keycode(KC_V); return; // cy
-        case KC_H: SEND_STRING("v"); set_last_keycode(KC_V); return; // hy
-        case KC_M: SEND_STRING("v"); set_last_keycode(KC_V); return; // mp
-        case KC_P: SEND_STRING("f"); set_last_keycode(KC_F); return; // pl
-        case KC_G: SEND_STRING("b"); set_last_keycode(KC_B); return; // gh
-    }
-    SEND_STRING("qu");
-}
-
 static void process_ar_f(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
         case KC_C:  SEND_STRING("h"); set_last_keycode(KC_H); return;
@@ -195,6 +168,33 @@ static void process_ar_b(uint16_t keycode, uint8_t mods) {
     }
     SEND_STRING("b");
     set_last_keycode(KC_B);
+}
+
+static void process_ar_j(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_U: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
+        case KC_C: SEND_STRING("f"); set_last_keycode(KC_F); return; // ch
+        // TODO: no way to type cj or uj (without backspace)
+    }
+    SEND_STRING("j");
+    set_last_keycode(KC_J);
+}
+
+static void process_ar_right(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_U: SEND_STRING("e"); set_last_keycode(KC_E); return;
+        case KC_O: SEND_STRING("a"); set_last_keycode(KC_A); return;
+        case KC_L: SEND_STRING("w"); set_last_keycode(KC_W); return;
+        case KC_N: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
+
+        // Allow access to alternative repeat key default characters.
+        case KC_C: SEND_STRING("v"); set_last_keycode(KC_V); return; // cy
+        case KC_H: SEND_STRING("v"); set_last_keycode(KC_V); return; // hy
+        case KC_M: SEND_STRING("v"); set_last_keycode(KC_V); return; // mp
+        case KC_P: SEND_STRING("f"); set_last_keycode(KC_F); return; // pl
+        case KC_G: SEND_STRING("b"); set_last_keycode(KC_B); return; // gh
+    }
+    SEND_STRING("qu");
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
