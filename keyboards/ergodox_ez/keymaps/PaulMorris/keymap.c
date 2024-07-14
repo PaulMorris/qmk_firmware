@@ -195,6 +195,7 @@ static void process_ar_right(uint16_t keycode, uint8_t mods) {
         case KC_G: SEND_STRING("b"); set_last_keycode(KC_B); return; // gh
     }
     SEND_STRING("qu");
+    set_last_keycode(KC_U);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
