@@ -149,6 +149,7 @@ static void process_ar_j(uint16_t keycode, uint8_t mods) {
         // TODO: no way to type cj or uj (without backspace)
     }
     SEND_STRING("j");
+    set_last_keycode(KC_J);
 }
 
 static void process_ar_right(uint16_t keycode, uint8_t mods) {
@@ -174,6 +175,7 @@ static void process_ar_f(uint16_t keycode, uint8_t mods) {
         case KC_P: SEND_STRING("l"); set_last_keycode(KC_L); return;
     }
     SEND_STRING("f");
+    set_last_keycode(KC_F);
 }
 
 static void process_ar_v(uint16_t keycode, uint8_t mods) {
@@ -184,6 +186,7 @@ static void process_ar_v(uint16_t keycode, uint8_t mods) {
         case KC_C: SEND_STRING("y"); set_last_keycode(KC_Y); return;
     }
     SEND_STRING("v");
+    set_last_keycode(KC_V);
 }
 
 static void process_ar_b(uint16_t keycode, uint8_t mods) {
@@ -191,6 +194,7 @@ static void process_ar_b(uint16_t keycode, uint8_t mods) {
         case KC_G:  SEND_STRING("h"); set_last_keycode(KC_H); return;
     }
     SEND_STRING("b");
+    set_last_keycode(KC_B);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
