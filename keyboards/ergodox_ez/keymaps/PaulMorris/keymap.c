@@ -234,7 +234,7 @@ static void process_ar_right(uint16_t keycode, uint8_t mods) {
         // hy/hp: you can't do hy->hp because of chy and ghy
         case KC_H: SEND_STRING("p"); set_last_keycode(KC_P); return;
     }
-    SEND_STRING("qu");
+    SEND_STRING("q");
     set_last_keycode(KC_U);
 }
 
