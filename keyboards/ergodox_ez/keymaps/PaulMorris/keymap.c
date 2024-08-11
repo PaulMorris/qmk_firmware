@@ -8,6 +8,10 @@ enum custom_keycodes {
   AR_F,
   AR_V,
   AR_B,
+  AR_H,
+  AR_P,
+  AR_Y,
+  AR_E,
 
   // RGB_SLD = EZ_SAFE_RANGE,
   // RGB_SLD = SAFE_RANGE,
@@ -17,8 +21,8 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox_pretty(
     TO(5),          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           TO(4),                                          OSL(9),         KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT,
-    CW_TOGG,        KC_X,           AR_F,           KC_D,           KC_P,           AR_J,           TO(6),                                          TO(7),          AR_RIGHT,       KC_G,           KC_O,           KC_U,           KC_COMMA,       KC_TRANSPARENT,
-    KC_APPLICATION, KC_N,           KC_S,           KC_T,           KC_L,           KC_W,                                                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           KC_ENTER,
+    CW_TOGG,        KC_X,           AR_F,           KC_D,           AR_P,           AR_J,           TO(6),                                          TO(7),          AR_RIGHT,       KC_G,           KC_O,           KC_U,           KC_COMMA,       KC_TRANSPARENT,
+    KC_APPLICATION, KC_N,           KC_S,           KC_T,           KC_L,           KC_W,                                                                           AR_Y,           AR_H,           KC_A,           AR_E,           KC_I,           KC_ENTER,
     OSM(MOD_LSFT),  AR_B,           AR_V,           KC_K,           KC_M,           KC_Q,           OSM(MOD_HYPR),                                  OSL(8),         KC_Z,           KC_C,           KC_QUOTE,       KC_SLASH,       KC_DOT,         OSM(MOD_RSFT),
     TO(3),          OSM(MOD_LCTL),  OSM(MOD_LALT),  KC_LEFT,        KC_RIGHT,                                                                                                       KC_UP,          KC_DOWN,        OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_TRANSPARENT,
                                                                                                     OSM(MOD_LCTL),  KC_LEFT_GUI,    OSM(MOD_LALT),  MT(MOD_LCTL, KC_ESCAPE),
@@ -133,18 +137,30 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
     switch (keycode) {
         case AR_J:
         case AR_RIGHT:
+        case AR_E:
         case AR_F:
         case AR_V:
         case AR_B:
+        case AR_H:
+        case AR_P:
+        case AR_Y:
             return false;  // Ignore ALTREP keys.
     }
 
     return true;  // Other keys can be repeated.
 }
 
+static void process_ar_e(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_U: SEND_STRING("h"); set_last_keycode(KC_H); return;
+    }
+    SEND_STRING("e");
+    set_last_keycode(KC_E);
+}
+
 static void process_ar_f(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        case KC_C:  SEND_STRING("h"); set_last_keycode(KC_H); return;
+        case KC_C: SEND_STRING("h"); set_last_keycode(KC_H); return;
         case KC_P: SEND_STRING("l"); set_last_keycode(KC_L); return;
     }
     SEND_STRING("f");
@@ -153,10 +169,8 @@ static void process_ar_f(uint16_t keycode, uint8_t mods) {
 
 static void process_ar_v(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        // TODO?: since [wv -> wh] and [hv -> hy] we get 'why' rather than 'whv' 
-        case KC_M: SEND_STRING("p"); set_last_keycode(KC_P); return;
-        case KC_H: SEND_STRING("y"); set_last_keycode(KC_Y); return;
         case KC_C: SEND_STRING("y"); set_last_keycode(KC_Y); return;
+        case KC_M: SEND_STRING("p"); set_last_keycode(KC_P); return;
     }
     SEND_STRING("v");
     set_last_keycode(KC_V);
@@ -164,35 +178,61 @@ static void process_ar_v(uint16_t keycode, uint8_t mods) {
 
 static void process_ar_b(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        case KC_G:  SEND_STRING("h"); set_last_keycode(KC_H); return;
+        case KC_G: SEND_STRING("h"); set_last_keycode(KC_H); return;
     }
     SEND_STRING("b");
     set_last_keycode(KC_B);
 }
 
+static void process_ar_h(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_C: SEND_STRING("f"); set_last_keycode(KC_F); return;
+        case KC_G: SEND_STRING("b"); set_last_keycode(KC_B); return;
+        case KC_L: SEND_STRING("p"); set_last_keycode(KC_P); return;
+        case KC_U: SEND_STRING("e"); set_last_keycode(KC_E); return;
+    }
+    SEND_STRING("h");
+    set_last_keycode(KC_H);
+}
+
 static void process_ar_j(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
         case KC_U: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
-        case KC_C: SEND_STRING("f"); set_last_keycode(KC_F); return; // ch
-        // TODO: no way to type cj or uj (without backspace)
     }
     SEND_STRING("j");
     set_last_keycode(KC_J);
 }
 
+static void process_ar_p(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_H: SEND_STRING("y"); set_last_keycode(KC_Y); return;
+        case KC_M: SEND_STRING("v"); set_last_keycode(KC_V); return;
+        case KC_L: SEND_STRING("h"); set_last_keycode(KC_H); return;
+    }
+    SEND_STRING("p");
+    set_last_keycode(KC_P);
+}
+
+static void process_ar_y(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_C: SEND_STRING("v"); set_last_keycode(KC_V); return;
+    }
+    SEND_STRING("y");
+    set_last_keycode(KC_Y);
+}
+
 static void process_ar_right(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
-        case KC_U: SEND_STRING("e"); set_last_keycode(KC_E); return;
-        case KC_O: SEND_STRING("a"); set_last_keycode(KC_A); return;
         case KC_L: SEND_STRING("w"); set_last_keycode(KC_W); return;
         case KC_N: SEND_STRING("'"); set_last_keycode(KC_QUOTE); return;
+        case KC_O: SEND_STRING("a"); set_last_keycode(KC_A); return;
+        case KC_U: SEND_STRING("j"); set_last_keycode(KC_J); return;
 
-        // Allow access to alternative repeat key default characters.
-        case KC_C: SEND_STRING("v"); set_last_keycode(KC_V); return; // cy
-        case KC_H: SEND_STRING("v"); set_last_keycode(KC_V); return; // hy
-        case KC_M: SEND_STRING("v"); set_last_keycode(KC_V); return; // mp
-        case KC_P: SEND_STRING("f"); set_last_keycode(KC_F); return; // pl
-        case KC_G: SEND_STRING("b"); set_last_keycode(KC_B); return; // gh
+        // pl/pf: you can't do pl->pf because of mpl and lpl
+        case KC_P: SEND_STRING("f"); set_last_keycode(KC_F); return;
+
+        // hy/hp: you can't do hy->hp because of chy and ghy
+        case KC_H: SEND_STRING("p"); set_last_keycode(KC_P); return;
     }
     SEND_STRING("qu");
     set_last_keycode(KC_U);
@@ -218,6 +258,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+    case AR_E:
+      if (record->event.pressed) {
+        process_ar_e(get_last_keycode(), get_last_mods());
+      }
+      return false;
+
+    case AR_H:
+      if (record->event.pressed) {
+        process_ar_h(get_last_keycode(), get_last_mods());
+      }
+      return false;
+
     case AR_J:
       if (record->event.pressed) {
         process_ar_j(get_last_keycode(), get_last_mods());
@@ -227,6 +279,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case AR_RIGHT:
       if (record->event.pressed) {
         process_ar_right(get_last_keycode(), get_last_mods());
+      }
+      return false;
+
+    case AR_P:
+      if (record->event.pressed) {
+        process_ar_p(get_last_keycode(), get_last_mods());
+      }
+      return false;
+
+    case AR_Y:
+      if (record->event.pressed) {
+        process_ar_y(get_last_keycode(), get_last_mods());
       }
       return false;
   }
